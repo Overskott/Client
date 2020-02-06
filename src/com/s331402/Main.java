@@ -10,7 +10,18 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        try (Socket socket = new Socket("localhost", 6666);
+        String hostName = "localhost";
+        if (args.length > 0)
+        {
+            hostName = args[0];
+                if (args.length > 1)
+                {
+                    System.err.println("Usage: java EchoClientTCP [<host name>]");
+                    System.exit(1);
+                }
+        }
+
+        try (Socket socket = new Socket(hostName, 6666);
              BufferedReader input = new BufferedReader(
                      new InputStreamReader(socket.getInputStream()));
              PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
@@ -31,13 +42,15 @@ public class Main {
 
                 System.out.println("Response code: " + response);
 
-                if(response.equals("0")){
+                if(response == null){
+                    System.out.println("Tomt svar fra server");
+                }else if(response.equals("0")){
                     while(!(response = input.readLine()).equals("3")) {
                         System.out.println(response);
                     }
                 }else if(response.equals("1")){
                     System.out.println("No email address found on the page!");
-                }else {
+                }else if(response.equals("2")){
                     System.out.println("Server couldn't find the web page!");
                 }
 
