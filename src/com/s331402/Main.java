@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -46,7 +47,8 @@ public class Main {
                 System.out.println("Response code: " + response);
 
                 if (response.equals("0")) {
-                    while (!(response = input.readLine()).equals("3")) {
+                    response = input.readLine();
+                    while ((response = input.readLine()) != null) {
                         System.out.println(response);
                     }
                 } else if (response.equals("1")) {
