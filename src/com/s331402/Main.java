@@ -47,7 +47,6 @@ public class Main {
                 System.out.println("Response code: " + response);
 
                 if (response.equals("0")) {
-                    response = input.readLine();
                     while ((response = input.readLine()) != null) {
                         System.out.println(response);
                     }
